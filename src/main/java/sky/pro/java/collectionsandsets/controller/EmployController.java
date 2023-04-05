@@ -1,13 +1,12 @@
 package sky.pro.java.collectionsandsets.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.web.bind.annotation.*;
 import sky.pro.java.collectionsandsets.Employee;
 import sky.pro.java.collectionsandsets.exeption.EmployeeNotFoundException;
 import sky.pro.java.collectionsandsets.service.EmployeeService;
+
+import java.util.List;
 
 /*
 Реализовать EmployeeController, который имеет поле EmployeeService.
@@ -45,9 +44,8 @@ public class EmployController {
      */
 
     @GetMapping("/add")
-    public String addEmployee(@RequestParam("firstName") String firstName,
-                                  @RequestParam("lastName") String lastName) throws JsonProcessingException {
-
+    public Employee addEmployee(@RequestParam("firstName") String firstName,
+                                @RequestParam("lastName") String lastName) {
         return employeeService.addEmployee(firstName, lastName);
     }
 
@@ -58,9 +56,8 @@ public class EmployController {
      */
 
     @GetMapping("/remove")
-    public String removeEmployee(@RequestParam("firstName") String firstName,
-                            @RequestParam("lastName") String lastName) throws JsonProcessingException {
-
+    public Employee removeEmployee(@RequestParam("firstName") String firstName,
+                                   @RequestParam("lastName") String lastName) {
         return employeeService.removeEmployee(firstName, lastName);
     }
 
@@ -70,16 +67,14 @@ public class EmployController {
     сотрудник отсутствует.
      */
     @GetMapping("/find")
-    public String getInfoEmployee(@RequestParam("firstName") String firstName,
-                                  @RequestParam("lastName") String lastName) throws JsonProcessingException {
+    public Employee getInfoEmployee(@RequestParam("firstName") String firstName,
+                                    @RequestParam("lastName") String lastName) {
         return employeeService.findEmployee(firstName, lastName);
 
     }
 
     @GetMapping
-    public String getAllEmployee() throws JsonProcessingException {
+    public List<Employee> getAllEmployee() {
         return employeeService.getInfoAllEmployee();
     }
-
-
 }

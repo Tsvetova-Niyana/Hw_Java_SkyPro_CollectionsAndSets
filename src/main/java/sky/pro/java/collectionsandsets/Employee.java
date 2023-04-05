@@ -13,9 +13,9 @@ public class Employee {
 
 
     // Формирование конструктора
-    public Employee(String firstName, String lastName) {
-        this.firstName = firstName;
+    public Employee(String lastName, String firstName) {
         this.lastName = lastName;
+        this.firstName = firstName;
     }
 
     // Создание геттеров для всех полей

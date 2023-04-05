@@ -1,7 +1,5 @@
 package sky.pro.java.collectionsandsets.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import sky.pro.java.collectionsandsets.Employee;
 import sky.pro.java.collectionsandsets.exeption.EmployeeAlreadyAddedException;
@@ -9,6 +7,8 @@ import sky.pro.java.collectionsandsets.exeption.EmployeeNotFoundException;
 import sky.pro.java.collectionsandsets.exeption.EmployeeStorageIsFullException;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /*
@@ -23,7 +23,7 @@ import java.util.List;
 @Service
 public class EmployeeService {
 
-    List<Employee> employees = new ArrayList<>(List.of(
+    private final List<Employee> employees = new ArrayList<>(List.of(
             new Employee("Иванов", "Иван"),
             new Employee("Никонов", "Владимир"),
             new Employee("Васильев", "Василий"),
@@ -44,7 +44,7 @@ public class EmployeeService {
         2. В метод с добавлением сотрудника нужно добавить выброс исключения из шага 8 в ситуации,
            когда добавляемый сотрудник уже имеется в коллекции. +
          */
-    public String addEmployee(String firstName, String lastName) throws JsonProcessingException {
+    public Employee addEmployee(String firstName, String lastName) {
         if (employees.size() == 12) {
             throw new EmployeeStorageIsFullException("Превышено количество сотрудников в списке." +
                     "Количество сотрудников не должно превышать " + employees.size() + " человек");
@@ -57,11 +57,10 @@ public class EmployeeService {
             }
         }
 
-        Employee employee = new Employee(firstName, lastName);
+        Employee employee = new Employee(lastName, firstName);
         employees.add(employee);
-        ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(employee);
-        return json;
+
+        return employee;
     }
 
     /* Функция удаления сотрудника
@@ -71,21 +70,20 @@ public class EmployeeService {
        сотрудник не найден.
     */
 
-    public String removeEmployee(String firstName, String lastName) throws JsonProcessingException {
-        String json = null;
+    public Employee removeEmployee(String firstName, String lastName) {
+        Employee employee = null;
 
         for (int i = 0; i < employees.size(); i++) {
             if (employees.get(i).getFirstName().equals(firstName) && employees.get(i).getLastName().equals(lastName)) {
-                ObjectMapper mapper = new ObjectMapper();
-                json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(employees.get(i));
-
+                employee = employees.get(i);
                 employees.remove(employees.get(i));
             }
         }
-        if (json != null) {
-            return json;
+        if (employee != null) {
+            return employee;
         } else {
-            throw new EmployeeNotFoundException("Сотрудник не найден");
+            throw new EmployeeNotFoundException("Сотрудник " + lastName + " " + firstName
+                    + " уже удален или не найден");
         }
     }
 
@@ -96,22 +94,22 @@ public class EmployeeService {
        когда сотрудник не найден.
     */
 
-    public String findEmployee(String firstName, String lastName) throws JsonProcessingException {
+    public Employee findEmployee(String firstName, String lastName) {
 
+        Employee employee = null;
 
-        String json = null;
 
         for (int i = 0; i < employees.size(); i++) {
             if (employees.get(i).getFirstName().equals(firstName) && employees.get(i).getLastName().equals(lastName)) {
-                ObjectMapper mapper = new ObjectMapper();
-                json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(employees.get(i));
+
+                employee = employees.get(i);
             }
         }
 
-        if (json != null) {
-            return json;
+        if (employee != null) {
+            return employee;
         } else {
-            throw new EmployeeNotFoundException("Сотрудник не найден");
+            throw new EmployeeNotFoundException("Сотрудник " + lastName + " " + firstName + " не найден");
         }
     }
 
@@ -119,10 +117,8 @@ public class EmployeeService {
     Написать метод, который выводит в браузер список всех сотрудников в формате JSON
     (необходимо вернуть объект списка).
      */
-    public String getInfoAllEmployee() throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(employees);
-        return json;
+    public List<Employee> getInfoAllEmployee() {
+        return Collections.unmodifiableList(employees);
     }
 }
 
