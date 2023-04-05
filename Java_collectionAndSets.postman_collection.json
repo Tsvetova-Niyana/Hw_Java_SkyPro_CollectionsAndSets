@@ -1,0 +1,669 @@
+{
+	"info": {
+		"_postman_id": "0fde9589-a190-493c-90fa-cfc1eeda6316",
+		"name": "Java_collectionAndSets",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19876906"
+	},
+	"item": [
+		{
+			"name": "get_employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/employee/find?firstName=Владимир&lastName=Никонов",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee",
+						"find"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": "Владимир"
+						},
+						{
+							"key": "lastName",
+							"value": "Никонов"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_employee_negative",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/employee/find?firstName=Кирилл&lastName=Васильев",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee",
+						"find"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": "Кирилл"
+						},
+						{
+							"key": "lastName",
+							"value": "Васильев"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_all_employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/employee",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add_employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/employee/add?firstName=Дмитрий&lastName=Мартынов",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee",
+						"add"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": "Дмитрий"
+						},
+						{
+							"key": "lastName",
+							"value": "Мартынов"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_employee_after_add",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/employee/find?firstName=Дмитрий&lastName=Мартынов",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee",
+						"find"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": "Дмитрий"
+						},
+						{
+							"key": "lastName",
+							"value": "Мартынов"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add_employee_dublicate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/employee/add?firstName=Дмитрий&lastName=Мартынов",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee",
+						"add"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": "Дмитрий"
+						},
+						{
+							"key": "lastName",
+							"value": "Мартынов"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_all_employee_after_add",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/employee",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "remove_employee_absent_employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/employee/remove?firstName=Андрей&lastName=Васильев",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee",
+						"remove"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": "Андрей"
+						},
+						{
+							"key": "lastName",
+							"value": "Васильев"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "remove_employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/employee/remove?firstName=Дмитрий&lastName=Мартынов",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee",
+						"remove"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": "Дмитрий"
+						},
+						{
+							"key": "lastName",
+							"value": "Мартынов"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_all_employee_after_remove",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/employee",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "remove_employee_dublicate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/employee/remove?firstName=Мартынов&lastName=Дмитрий",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee",
+						"remove"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": "Мартынов"
+						},
+						{
+							"key": "lastName",
+							"value": "Дмитрий"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_employee_after_remove",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/employee/find?firstName=Мартынов&lastName=Дмитрий",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee",
+						"find"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": "Мартынов"
+						},
+						{
+							"key": "lastName",
+							"value": "Дмитрий"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_all_employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/employee",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add_employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/employee/add?firstName=Дмитрий&lastName=Мартынов",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee",
+						"add"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": "Дмитрий"
+						},
+						{
+							"key": "lastName",
+							"value": "Мартынов"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add_employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/employee/add?firstName=Александр&lastName=Александров",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee",
+						"add"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": "Александр"
+						},
+						{
+							"key": "lastName",
+							"value": "Александров"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_all_employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/employee",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add_employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/employee/add?firstName=Виктория&lastName=Грибова",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee",
+						"add"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": "Виктория"
+						},
+						{
+							"key": "lastName",
+							"value": "Грибова"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
