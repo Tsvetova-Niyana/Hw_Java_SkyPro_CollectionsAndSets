@@ -73,6 +73,9 @@ public class EmployController {
 
     }
 
+    /*
+    Написать метод, который выводит в браузер список всех сотрудников в формате JSON (необходимо вернуть объект списка).
+     */
     @GetMapping
     public List<Employee> getAllEmployee() {
         return employeeService.getInfoAllEmployee();
