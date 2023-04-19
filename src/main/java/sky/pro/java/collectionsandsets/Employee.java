@@ -8,14 +8,22 @@ public class Employee {
     и методы hashCode, equals, toString.
      */
 
+    /*
+    Шаг 1. Добавить в поле Employee поля «Зарплата» и «Отдел» из курсовой работы.
+     */
+
     private String firstName;
     private String lastName;
+    private int department;
+    private double salaryEmploy;
 
 
     // Формирование конструктора
-    public Employee(String lastName, String firstName) {
+    public Employee(String lastName, String firstName, int department, double salaryEmploy) {
         this.lastName = lastName;
         this.firstName = firstName;
+        this.department = department;
+        this.salaryEmploy = salaryEmploy;
     }
 
     // Создание геттеров для всех полей
@@ -28,11 +36,28 @@ public class Employee {
         return this.lastName;
     }
 
+    public int getDepartment() {
+        return this.department;
+    }
+
+    public void setDepartment(int department) {
+        this.department = department;
+    }
+
+    public double getSalaryEmploy() {
+        return this.salaryEmploy;
+    }
+
+    public void setSalaryEmploy(double salaryEmploy) {
+        this.salaryEmploy = salaryEmploy;
+    }
 
     // Переопределение метода toString для класса Employee
     @Override
     public String toString() {
-        return "Ф.И.О сотрудника: " + firstName + " " + lastName + "\n";
+        return "Ф.И.О сотрудника: " + firstName + " " + lastName + "\n"+
+                "отдел :" + department +
+                "\nЗарплата: " + salaryEmploy;
     }
 
     // Переопределение метода equals для класса Employee

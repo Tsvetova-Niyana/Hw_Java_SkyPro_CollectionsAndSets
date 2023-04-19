@@ -6,10 +6,7 @@ import sky.pro.java.collectionsandsets.exeption.EmployeeAlreadyAddedException;
 import sky.pro.java.collectionsandsets.exeption.EmployeeNotFoundException;
 import sky.pro.java.collectionsandsets.exeption.EmployeeStorageIsFullException;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /*
 Создать сервис EmployeeService, который хранит внутри поле с коллекцией сотрудников.
@@ -24,16 +21,16 @@ import java.util.List;
 public class EmployeeService {
 
     private final List<Employee> employees = new ArrayList<>(List.of(
-            new Employee("Иванов", "Иван"),
-            new Employee("Никонов", "Владимир"),
-            new Employee("Васильев", "Василий"),
-            new Employee("Грачев", "Яков"),
-            new Employee("Голованов", "Аркадий"),
-            new Employee("Сухарева", "Ника"),
-            new Employee("Петров", "Петр"),
-            new Employee("Сидоров", "Вениамин"),
-            new Employee("Соколова", "Арина"),
-            new Employee("Семин", "Андрей")
+            new Employee("Иванов", "Иван", 2, 36570),
+            new Employee("Никонов", "Владимир", 1, 60500),
+            new Employee("Васильев", "Василий", 1, 26760),
+            new Employee("Грачев", "Яков", 2, 133000),
+            new Employee("Голованов", "Аркадий", 2, 39570),
+            new Employee("Сухарева", "Ника", 3, 25400),
+            new Employee("Петров", "Петр", 3, 157030),
+            new Employee("Сидоров", "Вениамин", 4, 53000),
+            new Employee("Соколова", "Арина", 5, 46050),
+            new Employee("Семин", "Андрей", 5, 44500)
     ));
 
     /* Функция добавления сотрудника
@@ -44,20 +41,19 @@ public class EmployeeService {
         2. В метод с добавлением сотрудника нужно добавить выброс исключения из шага 8 в ситуации,
            когда добавляемый сотрудник уже имеется в коллекции. +
          */
-    public Employee addEmployee(String firstName, String lastName) {
+    public Employee addEmployee(String firstName, String lastName, int dept, double salary) {
+        Employee employee = new Employee(lastName, firstName, dept, salary);
         if (employees.size() == 12) {
             throw new EmployeeStorageIsFullException("Превышено количество сотрудников в списке." +
                     "Количество сотрудников не должно превышать " + employees.size() + " человек");
         }
 
-        for (int i = 0; i < employees.size(); i++) {
-            if (employees.get(i).getFirstName().equals(firstName) && employees.get(i).getLastName().equals(lastName)) {
-                throw new EmployeeAlreadyAddedException("Сотрудник " + employees.get(i).getFirstName()
-                        + " " + employees.get(i).getLastName() + " уже есть");
-            }
+
+        if (employees.contains(employee)) {
+            throw new EmployeeAlreadyAddedException("Сотрудник " + employee.getFirstName()
+                        + " " + employee.getLastName() + " уже есть");
         }
 
-        Employee employee = new Employee(lastName, firstName);
         employees.add(employee);
 
         return employee;
@@ -70,21 +66,15 @@ public class EmployeeService {
        сотрудник не найден.
     */
 
-    public Employee removeEmployee(String firstName, String lastName) {
-        Employee employee = null;
+    public Employee removeEmployee(String firstName, String lastName, int dept, double salary) {
+        Employee employee = new Employee(lastName, firstName, dept, salary);
 
-        for (int i = 0; i < employees.size(); i++) {
-            if (employees.get(i).getFirstName().equals(firstName) && employees.get(i).getLastName().equals(lastName)) {
-                employee = employees.get(i);
-                employees.remove(employees.get(i));
-            }
-        }
-        if (employee != null) {
-            return employee;
-        } else {
+        if (!employees.contains(employee)) {
             throw new EmployeeNotFoundException("Сотрудник " + lastName + " " + firstName
                     + " уже удален или не найден");
         }
+        employees.remove(employee);
+        return employee;
     }
 
     /* Функция поиска сотрудника
@@ -94,23 +84,14 @@ public class EmployeeService {
        когда сотрудник не найден.
     */
 
-    public Employee findEmployee(String firstName, String lastName) {
+    public Employee findEmployee(String firstName, String lastName, int dept, double salary) {
 
-        Employee employee = null;
+        Employee employee = new Employee(lastName, firstName, dept, salary);
 
-
-        for (int i = 0; i < employees.size(); i++) {
-            if (employees.get(i).getFirstName().equals(firstName) && employees.get(i).getLastName().equals(lastName)) {
-
-                employee = employees.get(i);
-            }
-        }
-
-        if (employee != null) {
-            return employee;
-        } else {
+        if (!employees.contains(employee)) {
             throw new EmployeeNotFoundException("Сотрудник " + lastName + " " + firstName + " не найден");
         }
+        return employee;
     }
 
     /*
@@ -120,5 +101,8 @@ public class EmployeeService {
     public List<Employee> getInfoAllEmployee() {
         return Collections.unmodifiableList(employees);
     }
+
+
+
 }
 

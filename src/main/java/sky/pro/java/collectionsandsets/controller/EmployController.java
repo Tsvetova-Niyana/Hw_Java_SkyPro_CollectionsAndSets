@@ -3,7 +3,7 @@ package sky.pro.java.collectionsandsets.controller;
 
 import org.springframework.web.bind.annotation.*;
 import sky.pro.java.collectionsandsets.Employee;
-import sky.pro.java.collectionsandsets.exeption.EmployeeNotFoundException;
+import sky.pro.java.collectionsandsets.service.EmployServiceNew;
 import sky.pro.java.collectionsandsets.service.EmployeeService;
 
 import java.util.List;
@@ -45,8 +45,10 @@ public class EmployController {
 
     @GetMapping("/add")
     public Employee addEmployee(@RequestParam("firstName") String firstName,
-                                @RequestParam("lastName") String lastName) {
-        return employeeService.addEmployee(firstName, lastName);
+                                @RequestParam("lastName") String lastName,
+                                @RequestParam("department") int dept,
+                                @RequestParam("salary") double salary) {
+        return employeeService.addEmployee(firstName, lastName, dept, salary);
     }
 
     /*
@@ -57,8 +59,10 @@ public class EmployController {
 
     @GetMapping("/remove")
     public Employee removeEmployee(@RequestParam("firstName") String firstName,
-                                   @RequestParam("lastName") String lastName) {
-        return employeeService.removeEmployee(firstName, lastName);
+                                   @RequestParam("lastName") String lastName,
+                                   @RequestParam("department") int dept,
+                                   @RequestParam("salary") double salary) {
+        return employeeService.removeEmployee(firstName, lastName, dept, salary);
     }
 
     /*
@@ -68,8 +72,10 @@ public class EmployController {
      */
     @GetMapping("/find")
     public Employee getInfoEmployee(@RequestParam("firstName") String firstName,
-                                    @RequestParam("lastName") String lastName) {
-        return employeeService.findEmployee(firstName, lastName);
+                                    @RequestParam("lastName") String lastName,
+                                    @RequestParam("department") int dept,
+                                    @RequestParam("salary") double salary) {
+        return employeeService.findEmployee(firstName, lastName, dept, salary);
 
     }
 
@@ -80,4 +86,6 @@ public class EmployController {
     public List<Employee> getAllEmployee() {
         return employeeService.getInfoAllEmployee();
     }
+
+
 }
