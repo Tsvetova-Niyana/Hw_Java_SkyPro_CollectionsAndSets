@@ -1,8 +1,11 @@
 package sky.pro.java.collectionsandsets.controller;
 
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import sky.pro.java.collectionsandsets.Employee;
+import sky.pro.java.collectionsandsets.exeption.IncorrectNameException;
+import sky.pro.java.collectionsandsets.exeption.IncorrectSurnameException;
 import sky.pro.java.collectionsandsets.service.EmployServiceNew;
 import sky.pro.java.collectionsandsets.service.EmployeeService;
 
@@ -87,5 +90,15 @@ public class EmployController {
         return employeeService.getInfoAllEmployee();
     }
 
+    @ExceptionHandler({IncorrectNameException.class})
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    public String handleIncorrectNameException(IncorrectNameException e) {
+        return "Некорректное имя ".concat(e.getMessage());
+    }
 
+    @ExceptionHandler({IncorrectSurnameException.class})
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    public String handleIncorrectSurnameException(IncorrectSurnameException e) {
+        return "Некорректная фамилия ".concat(e.getMessage());
+    }
 }
