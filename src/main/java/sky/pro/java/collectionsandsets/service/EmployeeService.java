@@ -33,6 +33,12 @@ public class EmployeeService {
             new Employee("Семин", "Андрей", 5, 44500)
     ));
 
+    private final ValidatorService validatorService;
+
+    public EmployeeService(ValidatorService validatorService) {
+        this.validatorService = validatorService;
+    }
+
     /* Функция добавления сотрудника
        Добавить в методы из шага 5 новые исключения.
 
@@ -41,8 +47,16 @@ public class EmployeeService {
         2. В метод с добавлением сотрудника нужно добавить выброс исключения из шага 8 в ситуации,
            когда добавляемый сотрудник уже имеется в коллекции. +
          */
-    public Employee addEmployee(String firstName, String lastName, int dept, double salary) {
-        Employee employee = new Employee(lastName, firstName, dept, salary);
+    public Employee addEmployee(
+            String firstName,
+            String lastName,
+            int dept,
+            double salary) {
+        Employee employee = new Employee(
+                validatorService.validateSurname(lastName),
+                validatorService.validateName(firstName),
+                dept,
+                salary);
         if (employees.size() == 12) {
             throw new EmployeeStorageIsFullException("Превышено количество сотрудников в списке." +
                     "Количество сотрудников не должно превышать " + employees.size() + " человек");
