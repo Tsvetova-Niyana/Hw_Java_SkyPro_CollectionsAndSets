@@ -16,9 +16,10 @@ public class ValidatorService {
     }
 
     public String validateSurname(String surname) {
-        surname = StringUtils.trimToNull(surname);
+//        surname = StringUtils.trimToNull(surname);
         String[] surnames = surname.split("-");
         for (int i = 0; i < surnames.length; i++) {
+            surnames[i] = StringUtils.trimToNull(surnames[i]);
             if (!StringUtils.isAlpha(surnames[i])) {
                 throw new IncorrectSurnameException(surname);
             }
